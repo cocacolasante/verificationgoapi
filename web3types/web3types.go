@@ -7,3 +7,9 @@ type ProfileStruct struct {
 	Username       string
 	ProfileQRCode  string
 }
+
+type Post struct{
+	PostNumber uint;
+	IpfsHash string;
+	QrCodeSvg string;
+}

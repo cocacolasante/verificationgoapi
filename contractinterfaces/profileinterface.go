@@ -13,7 +13,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func getContract(c ethclient.Client) *profile.Profile {
+func getProfileContract(c *ethclient.Client) *profile.Profile {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file", err)
@@ -21,7 +21,7 @@ func getContract(c ethclient.Client) *profile.Profile {
 	
 	profileAddy := os.Getenv("PROFILE_ADDRESS")
 	profileAddress := common.HexToAddress(profileAddy)
-	profileContract, err := profile.NewProfile(profileAddress, &c)
+	profileContract, err := profile.NewProfile(profileAddress, c)
 
 	if err != nil{
 		log.Fatal("Error fatching profile contract", err)
@@ -36,7 +36,7 @@ func GetOwner() common.Address {
 
 	client := client.ConnectToClient()
 
-	profileContract := getContract(client)
+	profileContract := getProfileContract(&client)
 	
 
 	deployerAddy := os.Getenv("DEPLOYER_PUBLIC")
@@ -56,7 +56,7 @@ func GetOwner() common.Address {
 func GetProfileByAddress(address common.Address) web3types.ProfileStruct{
 	client := client.ConnectToClient()
 
-	profileContract := getContract(client)
+	profileContract := getProfileContract(&client)
 	deployerAddy := os.Getenv("DEPLOYER_PUBLIC")
 	deployerAddress := common.HexToAddress(deployerAddy)
 
@@ -70,3 +70,15 @@ func GetProfileByAddress(address common.Address) web3types.ProfileStruct{
 	}
 	return profile
 }
+
+
+// post request //
+
+// func CreateNewProfile(username string, qrCode string, sender common.Address) {
+
+// 	newProfile := web3types.ProfileStruct{ProfileAddress: sender, Username: username, ProfileQRCode: qrCode}
+
+// 	client := client.ConnectToClient()
+// 	profileContract := getContract(client)
+
+// }
