@@ -9,6 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// handlers for verification contract
 func GetUsersPostsAll(c *fiber.Ctx) error {
 	
 	addy := c.Params("address")
@@ -53,8 +54,22 @@ func GetSingleUsersPost(c *fiber.Ctx) error {
 
 func GetMintFee(c *fiber.Ctx) error {
 	mintFee := contractinterfaces.GetFee()
-	
+
 	c.JSON(mintFee)
 
 	return nil
 }
+
+
+// handlers for profile contract
+
+func GetProfile(c *fiber.Ctx) error {
+	addy := c.Params("address")
+	address := common.HexToAddress(addy)
+	profile := contractinterfaces.GetProfileByAddress(address)
+
+	c.JSON(profile)
+
+	return nil
+}
+

@@ -57,12 +57,8 @@ func GetProfileByAddress(address common.Address) web3types.ProfileStruct{
 	client := client.ConnectToClient()
 
 	profileContract := getProfileContract(&client)
-	deployerAddy := os.Getenv("DEPLOYER_PUBLIC")
-	deployerAddress := common.HexToAddress(deployerAddy)
 
-	profile, err := profileContract.Profiles(&bind.CallOpts{
-		From: deployerAddress,
-	}, address)
+	profile, err := profileContract.Profiles(&bind.CallOpts{}, address)
 
 	if err != nil{
 		log.Fatal("Error getting profile", err)
