@@ -62,7 +62,7 @@ func GetAdmin() common.Address{
 	return admin
 }
 
-func GetAllUsersPosts(address common.Address)[]verification.VerificationPost{
+func GetAllUsersPosts(address common.Address)([]verification.VerificationPost, error){
 	c := client.ConnectToClient()
 	
 	verificationContract := getVerificationContract(&c)
@@ -71,10 +71,11 @@ func GetAllUsersPosts(address common.Address)[]verification.VerificationPost{
 	usersPosts, err := verificationContract.GetAllUsersPost(&bind.CallOpts{}, address)
 	if err != nil {
 		log.Fatal("Error fetching posts", err)
+		return nil, err
 
 	}
 
-	return usersPosts
+	return usersPosts, nil
 } 
 
 func GetSpecificPost(address common.Address, postNum uint) verification.VerificationPost {
