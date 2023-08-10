@@ -78,7 +78,7 @@ func GetAllUsersPosts(address common.Address)([]verification.VerificationPost, e
 	return usersPosts, nil
 } 
 
-func GetSpecificPost(address common.Address, postNum uint) verification.VerificationPost {
+func GetSpecificPost(address common.Address, postNum uint64)( verification.VerificationPost) {
 	c := client.ConnectToClient()
 	
 	verificationContract := getVerificationContract(&c)
@@ -90,6 +90,7 @@ func GetSpecificPost(address common.Address, postNum uint) verification.Verifica
 	specificPost, err := verificationContract.GetSpecificPost(&bind.CallOpts{}, address, &biPost)
 	if err != nil {
 		log.Fatal("Error fetching post", err)
+		
 	}
 
 	return specificPost
