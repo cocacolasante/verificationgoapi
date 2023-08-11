@@ -68,13 +68,13 @@ func GetProfileByAddress(address common.Address) web3types.ProfileStruct{
 }
 
 
-// post request //
+// post request // will probably not use it for post requests -- unsecure
 
 // func CreateNewProfile(username string, qrCode string, sender common.Address) {
+// 	client := client.ConnectToClient()
 
 // 	newProfile := web3types.ProfileStruct{ProfileAddress: sender, Username: username, ProfileQRCode: qrCode}
 
-// 	client := client.ConnectToClient()
-// 	profileContract := getContract(client)
+	
 
 // }

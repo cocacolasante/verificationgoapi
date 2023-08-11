@@ -40,22 +40,27 @@ func GetSingleUsersPost(c *fiber.Ctx) error {
 	postNumber, err := strconv.ParseUint(postNum, 10, 64)
 	if err != nil {
 		fmt.Println(err)
+		c.Status(500)
 		return err
 	}
 	
 
 	post := contractinterfaces.GetSpecificPost(address, postNumber)
 
-	c.JSON(post)
+	c.Status(200).JSON(post)
 
 	return nil
 
 }
 
 func GetMintFee(c *fiber.Ctx) error {
-	mintFee := contractinterfaces.GetFee()
+	mintFee, err := contractinterfaces.GetFee()
+	if err != nil {
+		c.Status(500).JSON(err)
+		return err
+	}
 
-	c.JSON(mintFee)
+	c.Status(200).JSON(mintFee)
 
 	return nil
 }
@@ -68,7 +73,8 @@ func GetProfile(c *fiber.Ctx) error {
 	address := common.HexToAddress(addy)
 	profile := contractinterfaces.GetProfileByAddress(address)
 
-	c.JSON(profile)
+	
+	c.Status(200).JSON(profile)
 
 	return nil
 }

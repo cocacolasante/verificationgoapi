@@ -33,7 +33,7 @@ func getVerificationContract(c *ethclient.Client) *verification.Verification{
 	return verificationContract
 }
 
-func GetFee() *big.Int {
+func GetFee()( *big.Int, error ){
 	c := client.ConnectToClient()
 	
 	verificationContract := getVerificationContract(&c)
@@ -45,9 +45,10 @@ func GetFee() *big.Int {
 	})
 	if err != nil {
 		log.Fatal("Cannot get fee", err)
+		return nil, err
 
 	}
-	return fee
+	return fee, nil
 }
 
 func GetAdmin() common.Address{
